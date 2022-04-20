@@ -30,6 +30,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: arm64
+
       # Use docker image of Centos 6 or 7 with some devel packages as defined in PEP571 and PEP599
       - name: Make Linux bindings
         run: |

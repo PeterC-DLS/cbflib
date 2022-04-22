@@ -675,7 +675,7 @@ INSTALLSETUP_PY = installsetup.py
 #########################################################
 CC	= gcc
 C++	= g++
-CFLAGS  = -g -O2  -Wall -std=c99 -ansi -pedantic $(HDF5CFLAGS)
+CFLAGS  = -g -O2 -Wall -std=c99 -pedantic $(HDF5CFLAGS)
 LDFLAGS =
 F90C = gfortran
 F90FLAGS = -g -fno-range-check -fallow-invalid-boz

@@ -33,7 +33,7 @@ mv solib solib-$ARCH
 UNI_DEST=dist/$VERSION/macos/uni
 mkdir -p $UNI_DEST
 for l in $DEST/*.dylib; do
-    dlib=$(basename l)
+    dlib=$(basename $l)
     lipo -create $l $X86_DEST/$dlib -output $UNI_DEST/$dlib
 done
 

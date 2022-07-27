@@ -959,6 +959,9 @@ SOCFLAGS = -D_JNI_IMPLEMENTATION_
 SOLDFLAGS = -shared
 SOLDEXPORT=-Wl,--out-implib,solib/cbf.lib
 JAVAINCLUDES = -I$(JDKDIR)/include -I$(JDKDIR)/include/win32
+JAVA = java
+JAVAC = javac
+JAR = jar
 EXTRALIBS = -lm
 TIME =
 SLFLAGS = --use_cp
@@ -985,7 +988,7 @@ F90FLAGS = -g -fno-range-check -fallow-invalid-boz
 F90LDFLAGS = 
 SOCFLAGS = -fPIC
 SOLDFLAGS = -shared -Wl,-rpath,$(CBF_PREFIX)/lib
-JAVAINCLUDES = -I$(JDKDIR)/include -I$(JDKDIR)/include/linux
+JAVAINCLUDES = -I$(JDKDIR)/include -I$(JDKDIR)/include/win32
 LDPREFIX = PATH=$(SOLIB):$$PATH;export PATH;
 RUNLDPREFIX = PATH=$(CBF_PREFIX)/lib:$$PATH;export PATH;
 EXTRALIBS = -L/mingw32/bin -lm -lws2_32
@@ -3102,7 +3105,11 @@ py3cbfinstall: $(PY3CBF)/_pycbf.$(PY3CBFEXT) $(PY3CBF)/py3cbfinstall
 
 py3cbfuserinstall: $(PY3CBF)/_pycbf.$(PY3CBFEXT) $(PY3CBF)/py3cbfuserinstall
 
-javatests: $(BIN)/ctestcbf $(BIN)/testcbf.class $(SOLIB)/$(SO_LIB_CBF_WRAP)
+ctestcbf_bin: $(BIN)/ctestcbf $(BIN)/testcbf.class $(SOLIB)/$(SO_LIB_CBF_WRAP) $(BIN)/changtestcompression
+.PHONY:: ctestcbf_bin
+
+.PHONY:: javatests
+javatests: ctestcbf_bin
 	$(LDPREFIX)  $(BIN)/ctestcbf > testcbfc.txt
 	$(LDPREFIX) $(JAVA) -cp $(JCBF)/cbflib-$(VERSION).jar:$(BIN) testcbf > testcbfj.txt
 	$(DIFF) testcbfc.txt testcbfj.txt

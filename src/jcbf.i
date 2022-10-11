@@ -8,7 +8,6 @@
 
 %{
 /* Includes the header in the wrapper code */
-#include "cbf_tree.h"
 #include "cbf.h"
 %}
 
@@ -100,8 +99,8 @@ int cbf_get_realarray(cbf_handle  handle,
 		return pchs;
 	}
 
-	void delete_cbf_handle_struct() {
-		cbf_free_handle(self);
+	~_cbf_handle_struct() {
+		cbf_free_handle($self); /* let cbflib handle the closing of a file */
 	}
 }
 
